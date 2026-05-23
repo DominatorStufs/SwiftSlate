@@ -658,6 +658,18 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 <br>
 
 ---
+<br>
+
+## 🤖 Additional AI Providers Added
+
+SwiftSlate ab support karta hai **Codex API** aur **Unofficial Copilot API**, jo free AI endpoints hain aur tumhare custom needs ke liye integrate kiye gaye hain.
+
+| Provider | Notes | API Owner / Credit |
+|:---------|:------|:-----------------|
+| **Codex API** | Free AI endpoint, random model selection | [@nepcodexcc](https://t.me/nepcodexcc) |
+| **Unofficial Copilot API** | Free AI endpoint, JSON POST to `/v1/chat/completions` | [@nepcodexcc](https://t.me/nepcodexcc) |
+
+> [!NOTE] Ye APIs add kiye gaye hai while keeping all previous AI providers intact. Codex aur Copilot ke liye credit jaata hai [@nepcodexcc](https://t.me/nepcodexcc).
 
 <div align="center">
 
