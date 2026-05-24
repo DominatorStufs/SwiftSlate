@@ -89,4 +89,7 @@
     <string name="settings_temperature_title">温度</string>
     <string name="settings_made_by">由 Musheer Alam 用心制作</string>
     <string name="settings_sponsor">在 GitHub 上赞助</string>
+    <string name="settings_backup_export">Export Commands</string>
+    <string name="settings_backup_import">Import Commands</string>
+    <string name="settings_version">Version %1$s</string>
 </resources>

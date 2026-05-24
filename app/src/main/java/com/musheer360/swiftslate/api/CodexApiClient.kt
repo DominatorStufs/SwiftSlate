@@ -17,6 +17,7 @@ class CodexApiClient {
         private val HTTP_PREFIX_REGEX = Regex("^HTTP_\\d+:\\s*")
         private const val BASE_URL = "https://chatbot.codexapi.workers.dev"
         private const val MODELS_ENDPOINT = "$BASE_URL/models"
+        const val RANDOM_MODEL_ID = "random"
     }
 
     suspend fun getAvailableModels(): Result<List<String>> = withContext(Dispatchers.IO) {
@@ -34,6 +35,8 @@ class CodexApiClient {
                 val dataArray = jsonResponse.optJSONArray("data")
                 
                 val models = mutableListOf<String>()
+                // Add "Random" as first option
+                models.add(RANDOM_MODEL_ID)
                 if (dataArray != null) {
                     for (i in 0 until dataArray.length()) {
                         val model = dataArray.getJSONObject(i)
@@ -79,6 +82,10 @@ class CodexApiClient {
         }
     }
 
+    /**
+     * If model is RANDOM_MODEL_ID, we don't pass a model param so the API
+     * picks any available model on its own.
+     */
     suspend fun generate(
         prompt: String,
         text: String,
@@ -87,8 +94,14 @@ class CodexApiClient {
     ): Result<GenerateResult> = withContext(Dispatchers.IO) {
         var connection: HttpURLConnection? = null
         return try {
-            val safeModel = model.replace(Regex("[^a-zA-Z0-9._\\-/: ]"), "")
-            val baseUrl = "$BASE_URL/?prompt=${java.net.URLEncoder.encode(text, "UTF-8")}&model=$safeModel"
+            val encodedText = java.net.URLEncoder.encode(text, "UTF-8")
+            val baseUrl = if (model == RANDOM_MODEL_ID || model.isBlank()) {
+                // No model param → API uses any random available model
+                "$BASE_URL/?prompt=$encodedText"
+            } else {
+                val safeModel = model.replace(Regex("[^a-zA-Z0-9._\\-/: ]"), "")
+                "$BASE_URL/?prompt=$encodedText&model=$safeModel"
+            }
             
             connection = URL(baseUrl).openConnection() as HttpURLConnection
             connection.requestMethod = "GET"

@@ -34,7 +34,6 @@ import com.musheer360.swiftslate.manager.CommandManager
 import com.musheer360.swiftslate.model.ProviderType
 import com.musheer360.swiftslate.ui.components.ScreenTitle
 import com.musheer360.swiftslate.ui.components.SlateCard
-import com.musheer360.swiftslate.ui.components.SlateDivider
 import com.musheer360.swiftslate.ui.components.SlateTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,7 +58,7 @@ fun SettingsScreen(commandManager: CommandManager, prefs: SharedPreferences) {
     var groqModelExpanded by remember { mutableStateOf(false) }
     val groqModels = listOf("llama-3.3-70b-versatile", "llama-3.1-8b-instant", "openai/gpt-oss-120b", "openai/gpt-oss-20b", "meta-llama/llama-4-scout-17b-16e-instruct")
 
-    var codexApiModel by remember { mutableStateOf(prefs.getString("codex_api_model", "gpt-5") ?: "gpt-5") }
+    var codexApiModel by remember { mutableStateOf(prefs.getString("codex_api_model", CodexApiClient.RANDOM_MODEL_ID) ?: CodexApiClient.RANDOM_MODEL_ID) }
     var codexApiModelExpanded by remember { mutableStateOf(false) }
     var codexApiModels by remember { mutableStateOf<List<String>>(emptyList()) }
     var loadingCodexModels by remember { mutableStateOf(false) }
@@ -351,7 +350,7 @@ fun SettingsScreen(commandManager: CommandManager, prefs: SharedPreferences) {
                     }
                 ) {
                     SlateTextField(
-                        value = if (loadingCodexModels) "Loading..." else codexApiModel,
+                        value = if (loadingCodexModels) "Loading..." else if (codexApiModel == CodexApiClient.RANDOM_MODEL_ID) "Random (Any Model)" else codexApiModel,
                         onValueChange = {},
                         readOnly = true,
                         modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
@@ -365,7 +364,7 @@ fun SettingsScreen(commandManager: CommandManager, prefs: SharedPreferences) {
                         ) {
                             codexApiModels.forEach { model ->
                                 DropdownMenuItem(
-                                    text = { Text(model) },
+                                    text = { Text(if (model == CodexApiClient.RANDOM_MODEL_ID) "Random (Any Model)" else model) },
                                     onClick = {
                                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                         codexApiModel = model

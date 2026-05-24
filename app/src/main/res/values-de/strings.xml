@@ -89,4 +89,7 @@
     <string name="settings_temperature_title">Temperatur</string>
     <string name="settings_made_by">Mit Liebe gemacht von Musheer Alam</string>
     <string name="settings_sponsor">Auf GitHub sponsern</string>
+    <string name="settings_backup_export">Export Commands</string>
+    <string name="settings_backup_import">Import Commands</string>
+    <string name="settings_version">Version %1$s</string>
 </resources>

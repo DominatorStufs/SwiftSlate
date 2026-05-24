@@ -89,4 +89,7 @@
     <string name="settings_temperature_title">तापमान</string>
     <string name="settings_made_by">Musheer Alam द्वारा प्यार से बनाया गया</string>
     <string name="settings_sponsor">GitHub पर प्रायोजित करें</string>
+    <string name="settings_backup_export">Export Commands</string>
+    <string name="settings_backup_import">Import Commands</string>
+    <string name="settings_version">Version %1$s</string>
 </resources>

@@ -89,4 +89,7 @@
     <string name="delete_confirm_key_title">Delete this API key?</string>
     <string name="delete_confirm_message">This action cannot be undone.</string>
     <string name="delete_confirm_button">Delete</string>
+    <string name="settings_backup_export">Export Commands</string>
+    <string name="settings_backup_import">Import Commands</string>
+    <string name="settings_version">Version %1$s</string>
 </resources>
